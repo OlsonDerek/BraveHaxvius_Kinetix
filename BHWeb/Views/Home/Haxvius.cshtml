@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Haxvius";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/Haxvius.css" / >
+
+<h2>Haxvius</h2>
+<div class="wrapper">
+    <div class="ripple"></div>
+    <div class="content">
+        <p class="header">Material design switch</p>
+        <ul>
+            <li>
+                <p>Proxy Server:</p>
+                <input id="proxy_ip" type="text" />
+            </li>
+            <li>
+                <p>FBCode:</p>
+                <input id="fb_code" type="text" />
+            </li>
+            <li>
+                @{ 
+                    var d = new Dictionary<string, string>() { { "one", "1" }, { "two", "2" } }.Select(x => new { Value = x.Key, Text = x.Value });
+
+                    @Html.DropDownList("MissionSelect",
+                    new SelectList(d, "Value", "Text"),
+                    "Select Mission",
+                    new { @class = "form-control" });
+               }
+            </li>
+            <li>
+                <p>Repeat #:</p>
+                <input id="dorepeat" type="number"/>
+            </li>
+            <li>
+                <p>Do Arena</p>
+                <input id="doarena" type="checkbox" hidden="hidden" />
+                <label class="switch" for="test"></label>
+            </li>
+            <li>
+                <p>Do Raid</p>
+                <input id="doraid" type="checkbox" hidden="hidden" />
+                <label class="switch" for="test1"></label>
+            </li>
+            <li>
+                <p>Loot Items</p>
+                <input id="doloot" type="checkbox" hidden="hidden" />
+                <label class="switch" for="test2"></label>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <button class="button theme">Go!</button>
+    </div>
+</div>
+
+<script>
+    const wrapper = document.querySelector('.wrapper');
+    const button = document.querySelector('.button');
+    const ripple = document.querySelector('.ripple');
+
+    button.addEventListener('click', e => {
+        let top = button.offsetTop + e.offsetY;
+        let left = button.offsetLeft + e.offsetX;
+
+        Object.assign(ripple.style, {
+            top: `${top}px`,
+            left: `${left}px`
+        });
+
+
+        wrapper.classList.toggle('dark');
+    });
+</script>
